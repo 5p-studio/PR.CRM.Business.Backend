@@ -60,5 +60,9 @@
   },
   "include": [
     "./src/**/*"
+  ],
+  "exclude": [
+      "./src/database/migrations/*",
+      "./src/database/seeders/*"
   ]
 }
