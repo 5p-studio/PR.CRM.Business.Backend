@@ -33,16 +33,6 @@ module.exports = {
       is_locked: {
         type: Sequelize.BOOLEAN,
       },
-      id_employee: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'employees',
-          },
-          key: 'id',
-        },
-        allowNull: false,
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -45,7 +45,7 @@ module.exports = {
       is_locked: {
         type: Sequelize.BOOLEAN,
       },
-      id_permision: {
+      id_role: {
         type: Sequelize.INTEGER,
         references: {
           model: {
