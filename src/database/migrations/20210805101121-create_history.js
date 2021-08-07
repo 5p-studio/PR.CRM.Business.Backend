@@ -2,28 +2,31 @@
 
 module.exports = {
     up: async(queryInterface, Sequelize) => {
-        await queryInterface.createTable('process', {
-            id_history: {
+        await queryInterface.createTable('history', {
+            id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.INTEGER
+                type: Sequelize.INTEGER,
+            },
+            interactive_object: {
+                type: Sequelize.STRING,
             },
             action: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
             },
-            createdAt: {
+            created_at: {
                 allowNull: false,
-                type: Sequelize.DATE
+                type: Sequelize.DATE,
             },
-            updatedAt: {
+            updated_at: {
                 allowNull: false,
-                type: Sequelize.DATE
-            }
+                type: Sequelize.DATE,
+            },
         });
     },
 
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('process');
-    }
+        await queryInterface.dropTable('history');
+    },
 };
