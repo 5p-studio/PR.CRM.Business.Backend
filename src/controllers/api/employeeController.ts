@@ -14,7 +14,7 @@ class EmployeeController {
         limit: parseInt(limit, 10),
         offset: offset,
       });
-      sendSuccess(res, { content: employee.rows, totalPages: employee.count / parseInt(limit, 10) });
+      sendSuccess(res, { content: employee.rows, totalPages: Math.ceil(employee.count / parseInt(limit, 10)) });
     } catch (error) {
       sendError(res, 500, error.message, error);
     }
@@ -39,7 +39,8 @@ class EmployeeController {
   // create employee
   public async createEmp (req: Request, res: Response) {
     try {
-      const employee = await Employee.create(req.body);
+      const params = req.parameters.permit(Employee.CREATABLE_PARAMETERS).value();
+      const employee = await Employee.create(params);
       sendSuccess(res, { message: 'create successful', employee });
     } catch (error) {
       sendError(res, 500, error.message, error);

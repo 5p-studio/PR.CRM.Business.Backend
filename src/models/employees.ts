@@ -23,6 +23,33 @@ class EmployeeModel extends Model<EmployeeInterface> implements EmployeeInterfac
   public updatedAt: Date;
 
   static readonly UPDATABLE_PARAMETERS = ['firstName', 'lastName', 'email', 'password', 'salaryPerHour', 'phoneNumber', 'facebook', 'linkedln', 'skype', 'signatureEmail', 'avatar', 'isLocked', 'idRole', 'idDepartment'];
+  static readonly CREATABLE_PARAMETERS = ['firstName', 'lastName', 'email', 'password', 'salaryPerHour', 'phoneNumber', 'facebook', 'linkedln', 'skype', 'signatureEmail', 'avatar', 'idRole', 'idDepartment'];
+
+  static readonly validation: ModelValidateOptions = {
+    async uniquePhoneNumber () {
+      if (this.phoneNumber) {
+        const existedRecord = await EmployeeModel.findOne({
+          attributes: ['id'], where: { phoneNumber: this.phoneNumber },
+        });
+
+        if (existedRecord && existedRecord.id !== this.id) {
+          throw new ValidationErrorItem('Số điện thoại đã được sử dụng', 'uniquePhoneNumber', 'phoneNumber', this.value);
+        }
+      }
+    },
+
+    async uniqueEmail () {
+      if (this.email) {
+        const existedRecord = await EmployeeModel.findOne({
+          attributes: ['id'], where: { email: this.email },
+        });
+
+        if (existedRecord && existedRecord.id !== this.id) {
+          throw new ValidationErrorItem('Email đã được sử dụng', 'uniqueEmail', 'email', this.value);
+        }
+      }
+    },
+  }
 
   public static initialize (sequelize: Sequelize) {
     this.init(EmployeeEntity, {
@@ -50,32 +77,6 @@ class EmployeeModel extends Model<EmployeeInterface> implements EmployeeInterfac
       },
       sequelize,
     });
-  }
-
-  static readonly validation: ModelValidateOptions = {
-    async uniquePhoneNumber () {
-      if (this.phoneNumber) {
-        const existedRecord = await EmployeeModel.findOne({
-          attributes: ['id'], where: { phoneNumber: this.phoneNumber },
-        });
-
-        if (existedRecord && existedRecord.id !== this.id) {
-          throw new ValidationErrorItem('Số điện thoại đã được sử dụng', 'uniquePhoneNumber', 'phoneNumber', this.value);
-        }
-      }
-    },
-
-    async uniqueEmail () {
-      if (this.email) {
-        const existedRecord = await EmployeeModel.findOne({
-          attributes: ['id'], where: { email: this.email },
-        });
-
-        if (existedRecord && existedRecord.id !== this.id) {
-          throw new ValidationErrorItem('Email đã được sử dụng', 'uniqueEmail', 'email', this.value);
-        }
-      }
-    },
   }
 
   public static associate () { }
