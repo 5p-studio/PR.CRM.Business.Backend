@@ -1,15 +1,12 @@
 import { Router } from 'express';
-
-import initPassportLocal from '@controllers/api/loginController';
+import login from '@controllers/api/LoginController';
+//import initPassportLocal from '@controllers/api/a';
 
 var passport = require('passport');
 
 const router = Router();
 
-initPassportLocal();
+//initPassportLocal();
 
-router.post("/", passport.authenticate('local',{
-  failureRedirect: "/",
-  successRedirect: '/example'
-}));
+router.post('/' , login.index);
 export default router;

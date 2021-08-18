@@ -7,4 +7,5 @@ const router = Router();
 
 router.use('/example', ExampleRouting);
 router.use('/login', LoginRouting);
+
 export default router;
