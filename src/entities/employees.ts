@@ -68,7 +68,7 @@ const EmployeeEntity = {
   updatedAt: {
     allowNull: false,
     type: DataTypes.DATE,
-    field: 'created_at',
+    field: 'updated_at',
     defaultValue: DataTypes.NOW,
   },
 };

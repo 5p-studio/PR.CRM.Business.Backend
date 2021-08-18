@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize';
+import employees from '@models/employees';
 
 import employee from '@database/model/employees';
 
@@ -11,7 +12,7 @@ const sequelize = config.use_env_variable
   : new Sequelize(config.database, config.username, config.password, config);
 
 const models: any = [
-  employee,
+  employees,
 ];
 
 models.forEach((model :any) => {
