@@ -4,7 +4,6 @@ import pasport from '@middlewares/passport';
 
 const router = Router();
 
-
-router.get('/',pasport.authenticate('jwt', {session: false}), ExampleController.index);
+router.get('/', pasport.authenticate('jwt', { session: false }), ExampleController.index);
 
 export default router;

@@ -1,28 +1,25 @@
-var passport = require('passport');
+import User from '@models/employees';
 
-import  User from '@database/model/employees';
+const passport = require('passport');
+
 const passportJWT = require('passport-jwt');
 
-let ExtractJwt = passportJWT.ExtractJwt;
-let JwtStrategy = passportJWT.Strategy;
+const ExtractJwt = passportJWT.ExtractJwt;
+const JwtStrategy = passportJWT.Strategy;
 
-let jwtOptions = {'jwtFromRequest': '', 'secretOrKey': ''};
+const jwtOptions = { 'jwtFromRequest': '', 'secretOrKey': '' };
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = 'khoabimat';
 
-let strategy = new JwtStrategy(jwtOptions,async function(jwt_payload:{id: number}, next:any){
-    console.log('payload received', jwt_payload);
-     let user = await User.findOne({where:{id : jwt_payload.id}})
-     //console.log('ff ',user);
-    if (user) {
-    
-      next(null, user);
-    } else {
-     
-      next(null, false);
-    }
-    
-  });
-  passport.use(strategy);
+const strategy = new JwtStrategy(jwtOptions, async function (jwtPayload:{id: number}, next:any) {
+  console.log('payload received', jwtPayload);
+  const user = await User.findOne({ where: { id: jwtPayload.id } });
+  if (user) {
+    next(null, user);
+  } else {
+    next(null, false);
+  }
+});
+passport.use(strategy);
 
-  export default passport;
+export default passport;

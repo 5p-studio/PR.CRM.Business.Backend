@@ -1,6 +1,5 @@
 import { sendError, sendSuccess } from '@libs/response';
 import { Request, Response } from 'express';
-import User from '@database/model/employees';
 class ExampleController {
   public async index (req: Request, res: Response) {
     try {

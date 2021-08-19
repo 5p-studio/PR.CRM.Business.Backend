@@ -1,8 +1,6 @@
 import { Sequelize } from 'sequelize';
 import employees from '@models/employees';
 
-import employee from '@database/model/employees';
-
 const env: any = process.env.NODE_ENV || 'development';
 // eslint-disable-next-line node/no-path-concat
 const config = require(`${__dirname}/../configs/database`)[env];
