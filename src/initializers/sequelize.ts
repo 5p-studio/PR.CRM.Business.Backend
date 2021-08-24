@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 import employees from '@models/employees';
+import work from '@models/work';
 
 const env: any = process.env.NODE_ENV || 'development';
 // eslint-disable-next-line node/no-path-concat
@@ -11,6 +12,7 @@ const sequelize = config.use_env_variable
 
 const models: any = [
   employees,
+  work,
 ];
 
 models.forEach((model :any) => {
