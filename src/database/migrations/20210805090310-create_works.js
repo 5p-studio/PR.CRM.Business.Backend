@@ -17,10 +17,12 @@ module.exports = {
       },
       is_locked: {
         type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
 
       id_process: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: {
           model: {
             tableName: 'processes',
