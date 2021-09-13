@@ -2,18 +2,15 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('history', {
+    await queryInterface.createTable('groups', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      interactive_object: {
+      name: {
         type: Sequelize.STRING,
-      },
-      action: {
-        type: Sequelize.ENUM('insert', 'update', 'delete'),
       },
       created_at: {
         allowNull: false,
@@ -27,6 +24,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('history');
+    await queryInterface.dropTable('groups');
   },
 };

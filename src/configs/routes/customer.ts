@@ -1,0 +1,13 @@
+import { Router, Request, Response } from 'express';
+import customerController from '@controllers/api/customerController';
+
+const router = Router();
+
+router.get('/', (req: Request, res: Response) => customerController.getAllCustomer(req, res));
+router.get('/excel/', (req: Request, res: Response) => customerController.exportToExcel(req, res));
+router.get('/:id', customerController.getOneCustomer);
+router.post('/', customerController.createCustomer);
+router.put('/:id', customerController.editCustomer);
+router.delete('/:id', customerController.deleteCustomer);
+
+export default router;
