@@ -53,6 +53,12 @@
       "@chats/*": [
           "./chats/*"
       ],
+      "@templates/*":[
+          "./templates/*"
+      ],
+      "@workers/*":[
+        "./workers/*"
+      ],
       "~": [
           "./*"
       ],
