@@ -52,28 +52,34 @@ class CustomerModel extends Model<CustomerInterface> implements CustomerInterfac
     },
 
     filterEmployeeName (keyword) {
+      const whereCondition = keyword
+        ? {
+            [Op.or]: [
+              { firstName: { [Op.like]: `%${keyword || ''}%` } },
+              { lastName: { [Op.like]: `%${keyword || ''}%` } },
+            ],
+          }
+        : {};
       const whereFilter = {
         model: Employee,
         as: 'employee',
         attributes: ['id', 'firstName', 'lastName'],
-        where: {
-          [Op.or]: [
-            { firstName: { [Op.like]: `%${keyword || ''}%` } },
-            { lastName: { [Op.like]: `%${keyword || ''}%` } },
-          ],
-        },
+        where: whereCondition,
       };
       return { include: whereFilter };
     },
 
     filterGroup (keyword) {
+      const whereCondition = keyword
+        ? {
+            name: { [Op.like]: `%${keyword || ''}%` },
+          }
+        : {};
       const whereFilter = {
         model: Group,
         attributes: ['id', 'name'],
-        required: true,
-        where: {
-          name: { [Op.like]: `%${keyword || ''}%` },
-        },
+        required: false,
+        where: whereCondition,
       };
       return { include: whereFilter };
     },
@@ -83,7 +89,7 @@ class CustomerModel extends Model<CustomerInterface> implements CustomerInterfac
         model: Employee,
         as: 'employee',
         attributes: ['id', 'firstName', 'lastName'],
-        required: true,
+        required: false,
       };
       return { include: includeEmployee };
     },
@@ -92,7 +98,7 @@ class CustomerModel extends Model<CustomerInterface> implements CustomerInterfac
       const includeGroup = {
         model: Group,
         attributes: ['id', 'name'],
-        required: true,
+        required: false,
       };
       return { include: includeGroup };
     },
