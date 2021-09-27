@@ -10,6 +10,7 @@ import strongParams from '@middlewares/parameters';
 import { morganLogger } from '@middlewares/morgan';
 import routes from '@configs/routes';
 import Settings from '@configs/settings';
+import passport from '@middlewares/passport';
 
 const port = process.env.PORT || 3000;
 
@@ -42,3 +43,5 @@ sequelize.authenticate().then(() => {
     console.log('  Press CTRL-C to stop\n');
   });
 });
+
+app.use(passport.authenticate('jwt', { session: false }));
